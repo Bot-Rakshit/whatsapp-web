@@ -5,14 +5,14 @@ This is using a React+ Vite+ Shadcn starter
 Implemented a low level frontend design of whatsapp web clone using zustand, with the ability to manage to states for unread messages, read messages, bookmarking messages. 
 ## 🎉 Features
 
-**Real-time chat functionality**
-**Responsive design for mobile and desktop**
-**Dark mode support**
-**Message bookmarking**
-**Unread message indicators**
-**Chat pinning**
-**TypeScript for type safety**
-**Fast development with Vite**
+- ** Real-time chat functionality**
+- **Responsive design for mobile and desktop**
+- **Dark mode support**
+- **Message bookmarking**
+- **Unread message indicators**
+- **Chat pinning**
+- **TypeScript for type safety**
+- **Fast development with Vite**
 
 ## Frontend System Design
 ![image](https://github.com/user-attachments/assets/fd546add-609e-4d71-a10a-38d309ded105)
