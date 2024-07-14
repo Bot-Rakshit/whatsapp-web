@@ -1,20 +1,17 @@
-# React + Vite + TypeScript Template (react-vite-ui)
-
+# A Whatsapp Web clone with Mockapi's
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Dan5py/react-vite-ui/blob/main/LICENSE)
 
-A React + Vite template powered by shadcn/ui.
-
+Implemented a low level frontend design of whatsapp web clone using zustand, with the ability to manage to states for unread messages, read messages, bookmarking messages. 
 ## 🎉 Features
 
-- **React** - A JavaScript library for building user interfaces.
-- **Vite** - A fast, opinionated frontend build tool.
-- **TypeScript** - A typed superset of JavaScript that compiles to plain JavaScript.
-- **Tailwind CSS** - A utility-first CSS framework.
-- **Tailwind Prettier Plugin** - A Prettier plugin for formatting Tailwind CSS classes.
-- **ESLint** - A pluggable linting utility for JavaScript and TypeScript.
-- **PostCSS** - A tool for transforming CSS with JavaScript.
-- **Autoprefixer** - A PostCSS plugin to parse CSS and add vendor prefixes.
-- **shadcn/ui** - Beautifully designed components that you can copy and paste into your apps.
+##Real-time chat functionality
+##Responsive design for mobile and desktop
+##Dark mode support
+##Message bookmarking
+##Unread message indicators
+##Chat pinning
+##TypeScript for type safety
+##Fast development with Vite
 
 ## ⚙️ Prerequisites
 
