@@ -13,7 +13,7 @@ Implemented a low level frontend design of whatsapp web clone using zustand, wit
 **TypeScript for type safety**
 **Fast development with Vite**
 
-##Frontend System Design
+## Frontend System Design
 ![image](https://github.com/user-attachments/assets/fd546add-609e-4d71-a10a-38d309ded105)
 
 
