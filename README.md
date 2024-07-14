@@ -4,14 +4,46 @@
 Implemented a low level frontend design of whatsapp web clone using zustand, with the ability to manage to states for unread messages, read messages, bookmarking messages. 
 ## 🎉 Features
 
-##Real-time chat functionality
-##Responsive design for mobile and desktop
-##Dark mode support
-##Message bookmarking
-##Unread message indicators
-##Chat pinning
-##TypeScript for type safety
-##Fast development with Vite
+**Real-time chat functionality**
+**Responsive design for mobile and desktop**
+**Dark mode support**
+**Message bookmarking**
+**Unread message indicators**
+**Chat pinning**
+**TypeScript for type safety**
+**Fast development with Vite**
+
+##Frontend System Design
+![image](https://github.com/user-attachments/assets/fd546add-609e-4d71-a10a-38d309ded105)
+
+
+### Components
+
+1. **App Component**
+   - Manages state for `activeTab` and `isMobileMenuOpen`.
+   - Renders `ChatList`, `ChatWindow`, and `BookmarksTab` based on `activeTab` selection.
+
+2. **ChatList Component**
+   - Uses `useChatStore` for state management and actions.
+   - Fetches and displays chats from `ChatStore`.
+   - Handles chat selection, pinning, and marking as unread.
+
+3. **ChatWindow Component**
+   - Utilizes `useChatStore` for state management and actions.
+   - Displays messages for the selected chat from `ChatStore`.
+   - Handles sending messages and bookmarking actions.
+
+4. **BookmarksTab Component**
+   - Displays bookmarked messages fetched from `ChatStore` using `useChatStore`.
+
+5. **ChatStore (Zustand store)**
+   - Centralized state management for chat and message data.
+   - Provides actions and updates for chats and messages.
+   - Triggers re-renders in connected components upon state changes.
+
+6. **API Service**
+   - Simulates API calls for fetching chats and messages.
+   - Integrates with `ChatStore` to update data upon API responses.
 
 ## ⚙️ Prerequisites
 
@@ -60,22 +92,30 @@ Follow these steps to get started with the react-vite-ui template:
 The project structure follows a standard React application layout:
 
 ```python
-react-vite-ui/
-  ├── node_modules/      # Project dependencies
-  ├── public/            # Public assets
-  ├── src/               # Application source code
-  │   ├── components/    # React components
-  │   │   └── ui/        # shadc/ui components
-  │   ├── styles/        # CSS stylesheets
-  │   ├── lib/           # Utility functions
-  │   ├── App.tsx        # Application entry point
-  │   └── index.tsx      # Main rendering file
-  ├── .eslintrc.json     # ESLint configuration
-  ├── index.html         # HTML entry point
-  ├── postcss.config.js  # PostCSS configuration
-  ├── tailwind.config.js # Tailwind CSS configuration
-  ├── tsconfig.json      # TypeScript configuration
-  └── vite.config.ts     # Vite configuration
+  react-vite-ui/
+  ├── src/
+  │   ├── components/
+  │   │   ├── ui/
+  │   │   ├── BookmarksTab.tsx
+  │   │   ├── ChatList.tsx
+  │   │   └── ChatWindow.tsx
+  │   ├── store/
+  │   │   └── chatStore.tsx
+  │   ├── styles/
+  │   │   └── globals.css
+  │   ├── types/
+  │   │   └── chat.tsx
+  │   ├── lib/
+  │   │   └── utils.ts
+  │   ├── services/
+  │   │   └── api.ts
+  │   ├── App.tsx
+  │   └── main.tsx
+  ├── public/
+  ├── index.html
+  ├── tailwind.config.js
+  ├── vite.config.ts
+  └── package.json
 ```
 
 ## 📄 License
