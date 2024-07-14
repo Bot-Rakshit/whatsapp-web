@@ -1,5 +1,6 @@
 # A Whatsapp Web clone with Mockapi's
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Dan5py/react-vite-ui/blob/main/LICENSE)
+This is using a React+ Vite+ Shadcn starter
 
 Implemented a low level frontend design of whatsapp web clone using zustand, with the ability to manage to states for unread messages, read messages, bookmarking messages. 
 ## 🎉 Features
