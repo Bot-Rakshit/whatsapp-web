@@ -14,7 +14,8 @@ export interface Message {
   content: string;
   created_at: string;
   sender_id: number;
-  status?: 'SENT' | 'DELIVERED' | 'READ';
+  senderName?: string;
+  status: 'SENT' | 'DELIVERED' | 'READ';
   bookmarked?: boolean;
 }
 
@@ -25,11 +26,12 @@ export interface Chat {
     id: string;
     content: string;
     created_at: string;
-    status: string;
+    status: 'SENT' | 'DELIVERED' | 'READ';
   };
   read: boolean;
   bookmark: boolean;
   unread_count: number;
+  pinned: boolean;
 }
 
 export interface GroupedMessage {
@@ -41,14 +43,24 @@ export interface ChatStore {
   chats: Chat[];
   selectedChatId: number | null;
   messages: { [chatId: number]: Message[] };
+  bookmarkedMessages: Array<{
+    id: string;
+    content: string;
+    senderName: string;
+    created_at: string;
+  }>;
   loadChats: (filter: { read?: boolean; bookmark?: boolean }, userId: number, pageDetails: { page_size: number; last_element_position: number }) => Promise<void>;
-  selectChat: (chatId: number) => void;
+  selectChat: (chatId: number) => Promise<void>;
   loadMessages: (chatId: number, cursor: { last_message_id: string | null; page_size: number }) => Promise<void>;
-  sendMessage: (chatId: number, content: string) => void;
+  sendMessage: (chatId: number, content: string) => Promise<void>;
   markAsRead: (chatId: number, read: boolean) => Promise<void>;
   pollMessages: (chatId: number, lastMessageId: string) => Promise<void>;
   toggleMessageBookmark: (chatId: number, messageId: string) => void;
   toggleChatBookmark: (chatId: number) => void;
+  pinChat: (chatId: number) => void;
+  markChatAsRead: (chatId: number) => Promise<void>;
+  markChatAsUnread: (chatId: number) => Promise<void>;
+  syncChatsStatus: () => Promise<void>;
 }
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {

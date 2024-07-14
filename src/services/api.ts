@@ -21,7 +21,8 @@ const mockChats: Chat[] = [
     },
     read: false,
     bookmark: true,
-    unread_count: 2
+    unread_count: 2,
+    pinned: false
   },
   {
     chat_id: 10001,
@@ -43,7 +44,8 @@ const mockChats: Chat[] = [
     },
     read: false,
     bookmark: false,
-    unread_count: 1
+    unread_count: 1,
+    pinned: false
   },
   {
     chat_id: 10002,
@@ -65,8 +67,33 @@ const mockChats: Chat[] = [
     },
     read: false,
     bookmark: true,
-    unread_count: 3
-  }
+    unread_count: 3,
+    pinned: false
+  },
+  {
+    chat_id: 10003,
+    sender_details: {
+      user_id: -103,
+      profile_data: {
+        first_name: "Jasprit",
+        last_name: "Bumrah",
+        profile_picture: "",
+        headline: "Fast Bowler",
+        followers: "5000000"
+      }
+    },
+    last_message: {
+      id: "msg_11",
+      content: "How's your bowling practice going?",
+      created_at: "2024-05-29T07:30:00.000Z",
+      status: "DELIVERED"
+    },
+    read: true,
+    bookmark: false,
+    unread_count: 0,
+    pinned: false
+  },
+  // Add more chats (about 20-30 in total) following the same structure
 ];
 
 const mockMessages: { [key: number]: Message[] } = {
@@ -75,25 +102,29 @@ const mockMessages: { [key: number]: Message[] } = {
       id: "msg_1",
       content: "Awesome, texted you there. Thanks",
       created_at: "2024-05-29T04:14:45.614Z",
-      sender_id: -100
+      sender_id: -100,
+      status: "DELIVERED"
     },
     {
       id: "msg_2",
       content: "No problem, glad to help!",
       created_at: "2024-05-29T04:15:30.000Z",
-      sender_id: -1
+      sender_id: -1,
+      status: "SENT"
     },
     {
       id: "msg_3",
       content: "By the way, how's the team preparation going?",
       created_at: "2024-05-29T04:16:15.000Z",
-      sender_id: -100
+      sender_id: -100,
+      status: "DELIVERED"
     },
     {
       id: "msg_4",
       content: "It's going well. We're focusing on our fielding drills.",
       created_at: "2024-05-29T04:17:00.000Z",
-      sender_id: -1
+      sender_id: -1,
+      status: "SENT"
     }
   ],
   10001: [
@@ -101,19 +132,22 @@ const mockMessages: { [key: number]: Message[] } = {
       id: "msg_5",
       content: "Let's discuss the team strategy",
       created_at: "2024-05-29T05:30:00.000Z",
-      sender_id: -101
+      sender_id: -101,
+      status: "DELIVERED"
     },
     {
       id: "msg_6",
       content: "Sure, what do you have in mind?",
       created_at: "2024-05-29T05:31:00.000Z",
-      sender_id: -1
+      sender_id: -1,
+      status: "SENT"
     },
     {
       id: "msg_7",
       content: "I think we should focus on our bowling lineup",
       created_at: "2024-05-29T05:32:00.000Z",
-      sender_id: -101
+      sender_id: -101,
+      status: "DELIVERED"
     }
   ],
   10002: [
@@ -121,28 +155,41 @@ const mockMessages: { [key: number]: Message[] } = {
       id: "msg_8",
       content: "Great match yesterday!",
       created_at: "2024-05-29T06:45:00.000Z",
-      sender_id: -102
+      sender_id: -102,
+      status: "DELIVERED"
     },
     {
       id: "msg_9",
       content: "Thanks, MS! Your advice really helped.",
       created_at: "2024-05-29T06:46:00.000Z",
-      sender_id: -1
+      sender_id: -1,
+      status: "SENT"
     },
     {
       id: "msg_10",
       content: "Always happy to help. Keep up the good work!",
       created_at: "2024-05-29T06:47:00.000Z",
-      sender_id: -102
+      sender_id: -102,
+      status: "DELIVERED"
     }
-  ]
+  ],
+  10003: [
+    {
+      id: "msg_11",
+      content: "How's your bowling practice going?",
+      created_at: "2024-05-29T07:30:00.000Z",
+      sender_id: -103,
+      status: "DELIVERED"
+    },
+    // Add more messages (about 50-100) for this chat
+  ],
+  // Add more message arrays for other new chats
 };
 
 export const fetchChats = (
   applied_filters: { read?: boolean; bookmark?: boolean },
-  user_id: number,
   page_details: { page_size: number; last_element_position: number }
-): Promise<{ chats: Chat[] }> => {
+): Promise<{ chats: Chat[]; has_more: boolean }> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       let filteredChats = mockChats;
@@ -155,7 +202,10 @@ export const fetchChats = (
       const startIndex = page_details.last_element_position;
       const endIndex = startIndex + page_details.page_size;
       const paginatedChats = filteredChats.slice(startIndex, endIndex);
-      resolve({ chats: paginatedChats });
+      resolve({ 
+        chats: paginatedChats,
+        has_more: endIndex < filteredChats.length
+      });
     }, 300);
   });
 };
@@ -183,13 +233,19 @@ export const fetchMessages = (
 };
 
 export const markAsRead = (chat_id: number, read: boolean): Promise<void> => {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     setTimeout(() => {
+      if (Math.random() < 0.1) {
+        reject(new Error('Network error'));
+        return;
+      }
       const chat = mockChats.find(c => c.chat_id === chat_id);
       if (chat) {
         chat.read = read;
         if (read) {
           chat.unread_count = 0;
+        } else {
+          chat.unread_count = 0; // Set to 0 when marking as unread
         }
       }
       resolve();
